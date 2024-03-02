@@ -14,6 +14,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::group(['domain' => env('API_URL')], function () {
+
+    Route::get('/', function () {
+        return response('OK', 200);
+    });
+
+    //  Route::group(['prefix' => 'products', 'as' => 'products.']
+    Route::group(['prefix' => 'products'], function () {
+        Route::get('/', function () {
+            return response('PRODUCTS', 200);
+        });
+    });
+
 });
+
+//Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//    return $request->user();
+//});

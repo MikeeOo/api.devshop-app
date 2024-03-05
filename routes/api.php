@@ -157,11 +157,18 @@ Route::group(['domain' => env('API_URL')], function () {
             ],
         ];
 
-        Route::get('/', fn () => response($products));
+        Route::get('/', fn () => response($products)
+            ->header('Access-Control-Allow-Origin', 'http://localhost:3000')
+            ->header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
+            ->header('Access-Control-Allow-Headers', 'Content-Type, Accept, Authorization, X-Requested-With')
+        );
 
-        Route::get('/{id}', fn ($id) => response(array_filter($products, fn ($el) => $id === $el['id'])));
+        Route::get('/{id}', fn ($id) => response(...array_filter($products, fn ($el) => $id === $el['id']))
+            ->header('Access-Control-Allow-Origin', 'http://localhost:3000')
+            ->header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
+            ->header('Access-Control-Allow-Headers', 'Content-Type, Accept, Authorization, X-Requested-With')
+        );
     });
-
 });
 
 //Route::middleware('auth:sanctum')->get('/user', function (Request $request) {

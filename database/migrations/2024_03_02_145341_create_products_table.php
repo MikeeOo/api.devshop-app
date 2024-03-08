@@ -13,15 +13,16 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->string('product_name');
-            $table->string('product_image')->nullable();
-            $table->longText('product_description')->nullable();
-            $table->string('product_brand')->nullable();
-            $table->string('product_category');
-            $table->decimal('product_price');
-            $table->unsignedInteger('product_amount')->default(0);
-            $table->decimal('product_score', 2, 1)->default(0);
-            $table->unsignedInteger('product_reviews_amount')->default(0);
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->string('name');
+            $table->string('image_url')->nullable();
+            $table->string('brand');
+            $table->string('category');
+            $table->longText('description')->nullable();
+            $table->unsignedInteger('stock_quantity')->default(0);
+            $table->decimal('price', 10, 2);
+            $table->decimal('rating', 2, 1)->default(0.0);
+            $table->unsignedInteger('reviews_count')->default(0);
             $table->timestamps();
         });
     }

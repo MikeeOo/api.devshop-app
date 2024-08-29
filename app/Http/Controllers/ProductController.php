@@ -10,11 +10,14 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(): array
+    public function index()
     {
         $products = Product::all();
 
-        return arrayKeysToCamelCase($products->toArray());
+        return response(arrayKeysToCamelCase($products->toArray()))
+            ->header('Access-Control-Allow-Origin', 'http://localhost:3000')
+            ->header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
+            ->header('Access-Control-Allow-Headers', 'Content-Type, Accept, Authorization, X-Requested-With');
     }
 
     /**
@@ -38,11 +41,11 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        return arrayKeysToCamelCase($product->toArray());
-        //            ->header('Access-Control-Allow-Origin', 'http://localhost:3000')
-        //            ->header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
-        //            ->header('Access-Control-Allow-Headers', 'Content-Type, Accept, Authorization, X-Requested-With')
-        //        );
+        return response(arrayKeysToCamelCase($product->toArray()))
+            ->header('Access-Control-Allow-Origin', 'http://localhost:3000')
+            ->header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
+            ->header('Access-Control-Allow-Headers', 'Content-Type, Accept, Authorization, X-Requested-With');
+
     }
 
     /**
